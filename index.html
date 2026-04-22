@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的數位工具箱</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #f0f2f5; display: flex; justify-content: center; padding: 20px; }
+        .container { max-width: 500px; width: 100%; text-align: center; }
+        h1 { color: #1c1e21; margin-bottom: 30px; }
+        .menu-grid { display: grid; gap: 20px; }
+        .card { background: white; padding: 25px; border-radius: 15px; text-decoration: none; color: #333; 
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; display: block; font-size: 1.2rem; font-weight: bold; }
+        .card:active { transform: scale(0.95); background: #e7f3ff; }
+        .icon { font-size: 40px; display: block; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛠️ 我的工具箱</h1>
+        <div class="menu-grid">
+            <a href="/hr-app/" class="card"><span class="icon">📅</span>HR 出勤系統</a>
+            <a href="/my-money-app/" class="card"><span class="icon">💰</span>個人記帳本</a>
+        </div>
+    </div>
+</body>
+</html>
