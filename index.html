@@ -42,12 +42,14 @@
         <div class="menu-grid">
             <div class="card" onclick="openApp('/hr-app/')"><span class="icon">📅</span>HR 出勤系統</div>
             <div class="card" onclick="openApp('/my-money-app/')"><span class="icon">💰</span>個人記帳本</div>
+            <!-- 新增與修改：雲端備忘錄按鈕 (指向獨立儲存庫) -->
+            <div class="card" onclick="openApp('/my-notes-app/')"><span class="icon">📝</span>雲端備忘錄</div>
         </div>
     </div>
 
     <div id="app-viewer">
         <div id="back-bar" onclick="closeApp()">🏠 返回PWA系統</div>
-        <iframe id="app-iframe" src="" allow="local-storage" referrerpolicy="origin"></iframe>
+        <iframe id="app-iframe" src="" referrerpolicy="origin"></iframe>
     </div>
 
     <script>
@@ -76,9 +78,15 @@
             APP_IFRAME.src = ''; 
         }
 
-        // PWA 註冊邏輯 (維持不變)
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/my-portal/sw.js').then(() => console.log("門面系統服務正常啟動"));
+        // PWA 註冊邏輯 (加入 try-catch 安全防護機制，避免在 Canvas 預覽沙盒中報錯)
+        try {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/my-portal/sw.js')
+                    .then(() => console.log("門面系統服務正常啟動"))
+                    .catch((err) => console.log("SW 註冊被攔截 (預覽環境正常現象)"));
+            }
+        } catch (error) {
+            console.log("當前沙盒環境限制 Service Worker 執行，已安全略過。");
         }
     </script>
 </body>
