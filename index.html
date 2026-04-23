@@ -9,25 +9,76 @@
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%23667eea'/%3E%3Ctext x='50%25' y='55%25' font-family='sans-serif' font-size='60' text-anchor='middle' dominant-baseline='central'%3E🛠️%3C/text%3E%3C/svg%3E">
 
     <style>
-        /* 2. 界面美化 CSS - 專業系統風格 */
-        :root { --primary: #764ba2; --bg: #f4f7f9; }
-        body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); margin: 0; padding: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        /* 2. 界面美化 CSS - 唯美動漫風與玻璃擬態設計 */
+        :root { --primary: #764ba2; }
+        
+        body { 
+            font-family: -apple-system, system-ui, sans-serif; 
+            margin: 0; padding: 0; 
+            display: flex; flex-direction: column; 
+            height: 100vh; overflow: hidden; 
+            /* 新增：動漫唯美暖色系天空背景 */
+            background-color: #fdfbfb;
+            background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2500&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        /* 增加一層淡淡的暖色遮罩，讓畫面更柔和 */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,200,150,0.1) 100%);
+            z-index: -1;
+        }
         
         /* 入口導覽畫面 */
-        .portal-home { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 30px; }
-        .pwa-logo { width: 100px; height: 100px; margin-bottom: 20px; filter: drop-shadow(0 4px 6px rgba(118, 75, 162, 0.2)); }
-        h1 { font-size: 1.6rem; color: #333; margin: 0 0 40px; }
-        .menu-grid { width: 100%; max-width: 400px; display: grid; gap: 20px; }
-        .card { background: white; padding: 30px; border-radius: 20px; text-decoration: none; color: #444; box-shadow: 0 8px 16px rgba(0,0,0,0.05); transition: 0.2s; display: flex; flex-direction: column; align-items: center; font-size: 1.1rem; font-weight: 600; cursor: pointer; border: 2px solid transparent; }
-        .card:active { transform: scale(0.96); border-color: var(--primary); background-color: #fcf9ff; }
-        .icon { font-size: 45px; display: block; margin-bottom: 12px; }
+        .portal-home { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 30px 20px; overflow-y: auto; z-index: 1; }
+        
+        /* Logo 加入白色光暈凸顯 */
+        .pwa-logo { width: 90px; height: 90px; margin-bottom: 15px; filter: drop-shadow(0 4px 10px rgba(255, 255, 255, 0.6)); }
+        
+        /* 標題加強對比 */
+        h1 { font-size: 1.8rem; color: #2d3748; margin: 0 0 30px; font-weight: bold; text-shadow: 0 2px 15px rgba(255, 255, 255, 0.9); }
+        
+        /* 響應式網格排版 */
+        .menu-grid { width: 100%; max-width: 600px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 18px; }
+        
+        /* 優化：毛玻璃按鈕質感 (Glassmorphism) */
+        .card { 
+            /* 半透明白色背景 */
+            background: rgba(255, 255, 255, 0.65); 
+            /* 背景模糊濾鏡 */
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            /* 半透明白色邊框 */
+            border: 1px solid rgba(255, 255, 255, 0.8); 
+            padding: 25px 15px; border-radius: 20px; text-decoration: none; color: #333; 
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1); 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            display: flex; flex-direction: column; align-items: center; text-align: center; font-size: 1.05rem; font-weight: bold; cursor: pointer; 
+        }
+        
+        /* 按鈕互動回饋 */
+        .card:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.85); box-shadow: 0 12px 40px rgba(31, 38, 135, 0.15); }
+        .card:active { transform: scale(0.96); border-color: var(--primary); background: rgba(255, 255, 255, 0.9); }
+        .icon { font-size: 42px; display: block; margin-bottom: 10px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+
+        /* 版本資訊區塊優化 (加強辨識度) */
+        .version-info { margin-top: auto; padding-top: 40px; padding-bottom: 10px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .version-badge { background: rgba(255, 255, 255, 0.85); color: #475569; padding: 4px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; display: inline-block; margin-bottom: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .changelog { font-size: 0.85rem; color: #1e293b; max-width: 300px; line-height: 1.5; font-weight: 600; text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9); background: rgba(255,255,255,0.4); padding: 8px 12px; border-radius: 10px; backdrop-filter: blur(5px); }
 
         /* 3. iframe 內嵌視窗 CSS - 解決全螢幕與醜網址的問題 */
-        #app-viewer { display: none; flex: 1; flex-direction: column; width: 100%; height: 100%; position: fixed; top: 0; left: 0; background: white; z-index: 1000; padding-top: env(safe-area-inset-top); /* 支援 iPhone 瀏海屏 Safe Area */ }
+        #app-viewer { display: none; flex: 1; flex-direction: column; width: 100%; height: 100%; position: fixed; top: 0; left: 0; background: white; z-index: 1000; padding-top: env(safe-area-inset-top); }
         
         /* 回主選單按鈕 */
-        #back-bar { background: var(--primary); color: white; padding: 12px 15px; display: flex; justify-content: start; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
-        #app-iframe { border: none; width: 100%; height: 100%; flex: 1; }
+        #back-bar { background: var(--primary); color: white; padding: 12px 15px; display: flex; justify-content: start; cursor: pointer; font-size: 0.95rem; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        #app-iframe { border: none; width: 100%; height: 100%; flex: 1; background: #fff; }
     </style>
 </head>
 <body>
@@ -37,18 +88,27 @@
             <defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#667eea"/><stop offset="100%" stop-color="#764ba2"/></linearGradient></defs>
             <rect width="100" height="100" rx="25" fill="url(#g2)"/><text x="50%" y="55%" font-family="sans-serif" font-size="60" text-anchor="middle" dominant-baseline="central">🛠️</text>
         </svg>
-        <h1>PWA系統</h1>
+        <h1>PWA系統入口</h1>
         
+        <!-- 應用程式網格清單 (毛玻璃卡片) -->
         <div class="menu-grid">
             <div class="card" onclick="openApp('/hr-app/')"><span class="icon">📅</span>HR 出勤系統</div>
             <div class="card" onclick="openApp('/my-money-app/')"><span class="icon">💰</span>個人記帳本</div>
-            <!-- 新增與修改：雲端備忘錄按鈕 (指向獨立儲存庫) -->
             <div class="card" onclick="openApp('/my-notes-app/')"><span class="icon">📝</span>雲端備忘錄</div>
+        </div>
+
+        <!-- 版本更新與日誌 -->
+        <div class="version-info">
+            <div class="version-badge">v1.2.0</div>
+            <div class="changelog">
+                ✨ 最新更新：導入日系唯美場景背景，全面升級「玻璃擬態」毛玻璃質感介面。
+            </div>
         </div>
     </div>
 
+    <!-- 應用程式載入視窗 (背景為純白，不受入口背景影響) -->
     <div id="app-viewer">
-        <div id="back-bar" onclick="closeApp()">🏠 返回PWA系統</div>
+        <div id="back-bar" onclick="closeApp()">🏠 返回入口系統</div>
         <iframe id="app-iframe" src="" referrerpolicy="origin"></iframe>
     </div>
 
@@ -78,7 +138,7 @@
             APP_IFRAME.src = ''; 
         }
 
-        // PWA 註冊邏輯 (加入 try-catch 安全防護機制，避免在 Canvas 預覽沙盒中報錯)
+        // PWA 註冊邏輯 (加入 try-catch 安全防護機制)
         try {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/my-portal/sw.js')
