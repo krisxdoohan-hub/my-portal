@@ -1,8 +1,8 @@
 const CACHE_NAME = 'portal-cache-v1.2.0';
 const URLS_TO_CACHE = [
-    '/my-portal/',
-    '/my-portal/index.html',
-    '/my-portal/manifest.json'
+    './',
+    './index.html',
+    './manifest.json'
 ];
 
 // 1. 安裝階段：將核心檔案存入快取保險箱
